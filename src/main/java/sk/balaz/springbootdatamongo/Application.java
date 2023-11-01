@@ -39,24 +39,12 @@ public class Application {
                     LocalDateTime.now()
             );
 
-            Query query = new Query();
-            query.addCriteria(Criteria.where("email").is("tomas@tomas.edu"));
-
-            List<Student> students = template.find(query, Student.class);
-
-            if (students.size() > 1) {
-                throw new IllegalStateException(String.format("found many students with email [%s]", mail));
-            }
-
-            if (students.isEmpty()) {
-                System.out.println("Inserting student " + student);
-                studentRepository.save(student);
-            }
-            else {
-                System.out.println(student + " already exists");
-            }
-
+            studentRepository.findStudentByEmail(mail)
+                    .ifPresentOrElse(s -> System.out.println(student + " already exists"),
+                            () -> {
+                        System.out.println("Inserting student " + student);
+                        studentRepository.save(student);
+                    });
         };
     }
-
 }
