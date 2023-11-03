@@ -1,10 +1,7 @@
 package sk.balaz.springbootdatamongo;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,10 @@ public class StudentController {
     @GetMapping("{id}")
     public Student getStudentById(@PathVariable("id") String id) {
         return studentService.getStudentById(id);
+    }
+
+    @PostMapping
+    public Student createStudent(@RequestBody StudentRequest request) {
+        return studentService.createStudent(request);
     }
 }
