@@ -26,4 +26,9 @@ public class StudentController {
     public Student createStudent(@RequestBody StudentRequest request) {
         return studentService.createStudent(request);
     }
+
+    @PutMapping("{id}")
+    public Student updateStudent(@PathVariable("id") String id, @RequestBody StudentRequest request) {
+        return studentService.updateStudent(id, request);
+    }
 }
